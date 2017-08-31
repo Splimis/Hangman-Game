@@ -17,6 +17,8 @@
   var wins = 0;
   var losses = 0;
 
+  // this function contains all of the starting specifications for the game
+
   function setup() {
     availableLetters = "abcdefghijklmnopqrstuvwxyz";
       lives = 5;
@@ -24,7 +26,7 @@
       messages = {
           win: "You win",
           lose: "Game over",
-          guessed: "already guessed, please try again...",
+          guessed: "already guessed",
           validLetter: "Please enter a letter from A-Z"
       };
       lettersGuessed = lettersMatched = '';
@@ -55,7 +57,7 @@
           letter = '<li class="letter letter' + currentWord.charAt(i).toUpperCase() + '">' + currentWord.charAt(i).toUpperCase() + '</li>';
           letters.insertAdjacentHTML('beforeend', letter);
         }
-      
+    //This function executes when the game ends either by guessing all the letters or life loss
     }
 
     function gameOver(win) {
@@ -76,37 +78,39 @@
         guessInput.value = '';
     }
 
-     // Start game - should ideally check for existing functions attached to window.onload
+    
+
+     // Initializes the game when the browser window is finished loading
     window.onload = setup();
 
-    /* buttons */
+    //Just a restart button that recalls setup
     document.getElementById("restart").onclick = setup;
 
 
-    /* reset letter to guess on click */
+    //Input bar for placing guesses in
     guessInput.onclick = function () {
         this.value = '';
     };
 
-    /* main guess function when user clicks #guess */
+    //Jungle of if/else statements that decides what to do with your guess
     document.getElementById('hangmanGuesses').onsubmit = function (event) {
         if (event.preventDefault) event.preventDefault();
         output.innerHTML = '';
         output.classList.remove('error', 'warning');
         guess = guessInput.value;
 
-        /* does guess have a value? if yes continue, if no, error */
+        // evauluates your guess
         if (guess) {
-            /* is guess a valid letter? if so carry on, else error */
+            // makes sure the index position of the guess isnt -1 
             if (availableLetters.indexOf(guess) > -1) {
-                /* has it been guessed (missed or matched) already? if so, abandon & add notice */
+                // displays a warning if a letter you've already guessed is repeated
                 if ((lettersMatched && lettersMatched.indexOf(guess) > -1) || (lettersGuessed && lettersGuessed.indexOf(guess) > -1)) {
                     output.innerHTML = '"' + guess.toUpperCase() + '"' + messages.guessed;
                     output.classList.add("warning");
 
     
                 }
-                /* does guess exist in current word? if so, add to letters already matched, if final letter added, game over with win message */
+                // if the letter guessed is in the word, add to lettersGuessed, and if final letter, call game over
                 else if (currentWord.indexOf(guess) > -1) {
                     var lettersToShow;
                     lettersToShow = document.querySelectorAll(".letter" + guess.toUpperCase());
@@ -115,7 +119,6 @@
                         lettersToShow[i].classList.add("correct");
                     }
 
-                    /* check to see if letter appears multiple times */
                     for (var j = 0; j < currentWord.length; j++) {
                         if (currentWord.charAt(j) === guess) {
                             numLettersMatched += 1;
@@ -127,25 +130,26 @@
                         gameOver(true);
                     }
                 }
-                /* guess doesn't exist in current word and hasn't been guessed before, add to lettersGuessed, reduce lives & update user */
+                // if bad guess, subtract lives, warn output, or call Gameover
                 else {
                     lettersGuessed += guess;
                     lives--;
                     man.innerHTML = 'You have ' + lives + ' lives remaining';
                     if (lives === 0) gameOver();
                 }
-            }
-            /* not a valid letter, error */
+            }   
             else {
                 output.classList.add('error');
                 output.innerHTML = messages.validLetter;
             }
         }
-        /* no letter entered, error */
         else {
             output.classList.add('error');
             output.innerHTML = messages.validLetter;
         }
-        return false;
+        //IF AN ERROR IS ENCOUNTERED DECOMMENT 'return false;'
+        // return false;
+
     };
+
 }());
