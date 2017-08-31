@@ -1,0 +1,48 @@
+body{
+    box-sizing: border-box;
+
+}
+
+h1{
+    text-align: center;
+}
+
+#main{
+    position: relative;
+    margin-left: 235px;
+    width: 100%;
+}
+
+#man{
+    margin-left: 55px;
+}
+
+.letter {
+    display: inline-block;
+    list-style: none;
+    width: 20px;
+    margin: 0 5px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    color: white;
+}
+.current-word {
+    list-style: none;
+}
+    
+.correct {
+    background-color: #66666f;
+}
+.error {
+    color: red;
+    opacity: 1;
+}
+.warning {
+    color: orange;
+    opacity: 1;
+}
+.win {
+    color: green;
+    opacity: 1;
+}
+}

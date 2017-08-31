@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman</title>
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+<h1>Hangman</h1>
+<div id="main">
+<form id="hangmanGuesses">
+
+	<input type="text" maxlength="1" minlength="1" id="letter" name="letter" placeholder="Guess a letter">
+
+	<input id="guess" name="guess" type="submit" value="Guess">
+
+   <button id="restart" name="restart" type="button">Restart</button>
+</form>
+<br />
+<ul id="letters"></ul>
+<p id="man"></p>
+<p id="output" class="output">
+<p id="wins">wins<p>
+<p id="losses">losses</p>
+<p id="lettersGuessed">letters guessed</p>
+</div>
+</body>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+</html>
